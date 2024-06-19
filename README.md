@@ -56,3 +56,19 @@
 
 #### 设置属性字符串
 `@property(nonatomic,copy,readonly) XJButton *(^setAttributedString)(NSMutableAttributedString *attributedString);`
+
+
+### 举个🌰-swift
+
+`
+let button = XJButton();
+button.setFont(.SPMFont(fontSize: 14))
+                  .setCornerRadius(-1)
+                  .setTextColor(.white)
+                  .setBgColor(.appRedColor)
+                  .setContentEdgeInsets(UIEdgeInsets(top: 8, left: 35, bottom: 8, right: 35)).sizeToFit()
+`
+
+
+
+
