@@ -71,9 +71,9 @@
     if (_image) {
         [self setImage:_image forState:UIControlStateNormal];
     }
-    if (_actionBlock) {
+(*     if (_actionBlock) { *)
         [self addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
+(*     } *)
 }
 
 -(XJButton * _Nonnull (^)(NSString * _Nonnull))setSeletedTitle{
