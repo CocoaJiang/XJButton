@@ -257,6 +257,12 @@
         }
         strongSelf.gradientLayer.endPoint = p_end;
         [strongSelf.layer insertSublayer:self.gradientLayer atIndex:0];
+        if (strongSelf.imageView) {
+            [strongSelf bringSubviewToFront:strongSelf.imageView];
+        }
+        if (strongSelf.titleLabel) {
+            [strongSelf bringSubviewToFront:strongSelf.titleLabel];
+        }
         [strongSelf setNeedsLayout];
         return strongSelf;
     };
