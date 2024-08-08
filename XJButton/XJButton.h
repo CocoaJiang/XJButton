@@ -10,10 +10,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, XJButtonImagePosition) {
-    XJButtonImagePositionTop,             // imageView在titleLabel上面
-    XJButtonImagePositionLeft,            // imageView在titleLabel左边
-    XJButtonImagePositionBottom,          // imageView在titleLabel下面
-    XJButtonImagePositionRight,           // imageView在titleLabel右边
+    XJButtonImagePositionTop = 2,             // imageView在titleLabel上面
+    XJButtonImagePositionLeft = 0,            // imageView在titleLabel左边
+    XJButtonImagePositionBottom = 3,          // imageView在titleLabel下面
+    XJButtonImagePositionRight = 1,           // imageView在titleLabel右边
 };
 
 
@@ -51,28 +51,28 @@ typedef NS_ENUM(NSInteger , XJButtonGradientType){
 
 
 /// 设置选中标题
-@property (nonatomic,copy,readonly) XJButton * (^setSeletedTitle) (NSString * text);
+@property (nonatomic,copy,readonly) XJButton * (^setSeletedTitle) (NSString *_Nullable text);
 
 /// 设置标题
-@property (nonatomic,copy,readonly) XJButton * (^setTitle) (NSString * text);
+@property (nonatomic,copy,readonly) XJButton * (^setTitle) (NSString *_Nullable text);
 
 /// 设置选中图片
-@property(nonatomic,copy,readonly) XJButton *(^setSeletedImage)(UIImage *image);
+@property(nonatomic,copy,readonly) XJButton *(^setSeletedImage)(UIImage *_Nullable image);
 
 /// 设置普通图片
-@property(nonatomic,copy,readonly) XJButton *(^setImage)(UIImage *image);
+@property(nonatomic,copy,readonly) XJButton *(^setImage)(UIImage *_Nullable image);
 
 /// 设置事件
-@property(nonatomic,copy,readonly) XJButton *(^setAction)(void(^)(XJButton *button));
+@property(nonatomic,copy,readonly) XJButton *(^setAction)(void(^_Nullable)(XJButton *button));
 
 /// 设置字体
-@property(nonatomic,copy,readonly) XJButton *(^setFont)(UIFont *font);
+@property(nonatomic,copy,readonly) XJButton *(^setFont)(UIFont *_Nullable font);
 
 /// 设置字体颜色
-@property(nonatomic,copy,readonly) XJButton *(^setTextColor)(UIColor *color);
+@property(nonatomic,copy,readonly) XJButton *(^setTextColor)(UIColor *_Nullable color);
 
 /// 设置背景颜色
-@property(nonatomic,copy,readonly) XJButton *(^setBgColor)(UIColor *color);
+@property(nonatomic,copy,readonly) XJButton *(^setBgColor)(UIColor *_Nullable color);
 
 /// 设置布局方式
 @property(nonatomic,copy,readonly) XJButton *(^setImagePosition)(XJButtonImagePosition imagePosition);
@@ -84,7 +84,7 @@ typedef NS_ENUM(NSInteger , XJButtonGradientType){
 @property(nonatomic,copy,readonly) XJButton *(^setCornerRadius)(CGFloat cornerRadius);
 
 /// 支持格式copy 其他label的格式包含如下 :  copy 字体颜色 . copy 背景颜色    copy 字体
-@property(nonatomic,copy,readonly) XJButton *(^setTheSameAppearanceAsButton)(UIButton *button);
+@property(nonatomic,copy,readonly) XJButton *(^setTheSameAppearanceAsButton)(UIButton *_Nullable button);
 
 /// 设置内边距
 @property(nonatomic,copy,readonly) XJButton *(^setContentEdgeInsets)(UIEdgeInsets edgeInsets);
@@ -97,12 +97,13 @@ typedef NS_ENUM(NSInteger , XJButtonGradientType){
 @property(nonatomic,copy,readonly) XJButton *(^setOneOrMoreCorner)(UIRectCorner corner,CGFloat oneOrMorecornerRadius);
 
 /// 设置button 背景色 渐变 颜色值，渐变方向。
-@property(nonatomic,copy,readonly) XJButton *(^setGradation)(NSArray <UIColor *> *colors,XJButtonGradientType type);
+@property(nonatomic,copy,readonly) XJButton *(^setGradation)(NSArray <UIColor *> *_Nullable colors,XJButtonGradientType type);
 
 /// 设置属性字符串
-@property(nonatomic,copy,readonly) XJButton *(^setAttributedString)(NSMutableAttributedString *attributedString);
+@property(nonatomic,copy,readonly) XJButton *(^setAttributedString)(NSMutableAttributedString *_Nullable attributedString);
 
 
 @end
 
 NS_ASSUME_NONNULL_END
+

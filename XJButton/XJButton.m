@@ -18,7 +18,7 @@
 @property (nonatomic,assign) UIRectCorner corner;
 @property(strong,nonatomic) NSArray<UIColor *> *colors;
 @property(assign,nonatomic) XJButtonGradientType type;
-@property(strong,nonatomic) CAGradientLayer *gradientLayer;
+@property(strong,nonatomic) CAGradientLayer *_Nullable gradientLayer;
 @property(strong,nonatomic) CAShapeLayer *shapeLayer;
 @end
 
@@ -72,76 +72,96 @@
         [self setImage:_image forState:UIControlStateNormal];
     }
     [self addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-
 }
 
 -(XJButton * _Nonnull (^)(NSString * _Nonnull))setSeletedTitle{
     __weak typeof(self)weakSelf = self;
-    return ^(NSString *seletedTitle){
+    return ^(NSString *_Nullable seletedTitle){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf setTitle:seletedTitle forState:UIControlStateSelected];
+        if (seletedTitle) {
+            [strongSelf setTitle:seletedTitle forState:UIControlStateSelected];
+        }
         return strongSelf;
     };
 }
 
 -(XJButton * _Nonnull (^)(NSString * _Nonnull))setTitle{
     __weak typeof(self)weakSelf = self;
-    return ^(NSString *title){
+    return ^(NSString *_Nullable title){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf setTitle:title forState:UIControlStateNormal];
+        if (title) {
+            [strongSelf setTitle:title forState:UIControlStateNormal];
+        }
         return strongSelf;
     };
 }
 
 -(XJButton * _Nonnull (^)(UIImage * _Nonnull))setImage{
     __weak typeof(self)weakSelf = self;
-    return ^(UIImage *img){
+    return ^(UIImage *_Nonnull img){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf setImage:img forState:UIControlStateNormal];
+        if (img) {
+            [strongSelf setImage:img forState:UIControlStateNormal];
+        }
         return strongSelf;
     };
 }
 
 -(XJButton * _Nonnull (^)(UIImage * _Nonnull))setSeletedImage{
     __weak typeof(self)weakSelf = self;
-    return ^(UIImage *seletedImage){
+    return ^(UIImage *_Nonnull seletedImage){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf setImage:seletedImage forState:UIControlStateSelected];
+        if (seletedImage) {
+            [strongSelf setImage:seletedImage forState:UIControlStateSelected];
+        }
         return strongSelf;
     };
 }
 
--(XJButton * _Nonnull (^)(void (^ _Nonnull)(XJButton * _Nonnull)))setAction{
+-(XJButton * _Nonnull (^)(void (^ _Nullable)(XJButton * _Nonnull)))setAction{
     __weak typeof(self)weakSelf = self;
-    return ^(void(^action)(XJButton *button)){
+    return ^(void(^_Nonnull action)(XJButton *button)){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        strongSelf.actionBlock = [action copy];
+        if (action) {
+            strongSelf.actionBlock = [action copy];
+        }
         return strongSelf;
     };
 }
+
 
 -(XJButton * _Nonnull (^)(UIFont * _Nonnull))setFont{
     __weak typeof(self)weakSelf = self;
-    return ^(UIFont *font){
+    return ^(UIFont *_Nonnull font){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        strongSelf.titleLabel.font = font;
+        if (font) {
+            strongSelf.titleLabel.font = font;
+        }
         return strongSelf;
     };
 }
 -(XJButton * _Nonnull (^)(UIColor * _Nonnull))setTextColor{
     __weak typeof(self)weakSelf = self;
-    return ^(UIColor *color){
+    return ^(UIColor *_Nonnull color){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf setTitleColor:color forState:UIControlStateNormal];
+        if (color) {
+            [strongSelf setTitleColor:color forState:UIControlStateNormal];
+        }
         return strongSelf;
     };
 }
 
 -(XJButton * _Nonnull (^)(UIColor * _Nonnull))setBgColor{
     __weak typeof(self)weakSelf = self;
-    return ^(UIColor *color){
+    return ^(UIColor *_Nonnull color){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf setBackgroundColor:color];
+        if (color) {
+            if (strongSelf.gradientLayer) {
+                [strongSelf.gradientLayer removeFromSuperlayer];
+                strongSelf.gradientLayer = nil;
+            }
+            [strongSelf setBackgroundColor:color];
+        }
         return strongSelf;
     };
 }
@@ -182,9 +202,11 @@
 
 -(XJButton * _Nonnull (^)(UIButton * _Nonnull))setTheSameAppearanceAsButton{
     __weak typeof(self)weakSelf = self;
-    return ^(UIButton *button){
+    return ^(UIButton *_Nonnull button){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        strongSelf.setFont(button.titleLabel.font).setTextColor(button.titleLabel.textColor).setBgColor(button.backgroundColor);
+        if (button) {
+            strongSelf.setFont(button.titleLabel.font).setTextColor(button.titleLabel.textColor).setBgColor(button.backgroundColor);
+        }
         return strongSelf;
     };
 }
@@ -223,45 +245,47 @@
     __weak typeof(self)weakSelf = self;
     return ^(NSArray<UIColor *> * _Nonnull colors,XJButtonGradientType type){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        strongSelf.type = type;
-        strongSelf.colors = colors;
-        NSMutableArray *c_array = [[NSMutableArray alloc]init];
-        for (UIColor * c in strongSelf.colors) {
-            [c_array addObject:(id)c.CGColor];
-        }
-        self.gradientLayer.colors = (NSArray *)c_array;
+        if (colors) {
+            strongSelf.type = type;
+            strongSelf.colors = colors;
+            NSMutableArray *c_array = [[NSMutableArray alloc]init];
+            for (UIColor * c in strongSelf.colors) {
+                [c_array addObject:(id)c.CGColor];
+            }
+            self.gradientLayer.colors = (NSArray *)c_array;
 
-        CGPoint  p_start = CGPointZero;
-        if (strongSelf.type==XJButtonGradientChangeDirectionUpwardDiagonalLine) {
-            p_start = CGPointMake(0.0f, 0.1f);
-        }
-        strongSelf.gradientLayer.startPoint = p_start;
+            CGPoint  p_start = CGPointZero;
+            if (strongSelf.type==XJButtonGradientChangeDirectionUpwardDiagonalLine) {
+                p_start = CGPointMake(0.0f, 0.1f);
+            }
+            strongSelf.gradientLayer.startPoint = p_start;
+            strongSelf.gradientLayer.frame = self.bounds;
+            CGPoint p_end = CGPointZero;
 
-        CGPoint p_end = CGPointZero;
-
-        switch (strongSelf.type) {
-            case XJButtonGradientChangeDirectionLevel:
-                   p_end = CGPointMake(1.0, 0.0);
-                   break;
-            case XJButtonGradientChangeDirectionVertical:
-                   p_end = CGPointMake(0.0, 1.0);
-                   break;
-            case XJButtonGradientChangeDirectionUpwardDiagonalLine:
-                   p_end = CGPointMake(1.0, 1.0);
-                   break;
-            case XJButtonGradientChangeDirectionDownDiagonalLine:
-                   p_end = CGPointMake(1.0, 0.0);
-                   break;
-               default:
-                   break;
-        }
-        strongSelf.gradientLayer.endPoint = p_end;
-        [strongSelf.layer insertSublayer:self.gradientLayer atIndex:0];
-        if (strongSelf.imageView) {
-            [strongSelf bringSubviewToFront:strongSelf.imageView];
-        }
-        if (strongSelf.titleLabel) {
-            [strongSelf bringSubviewToFront:strongSelf.titleLabel];
+            switch (strongSelf.type) {
+                case XJButtonGradientChangeDirectionLevel:
+                       p_end = CGPointMake(1.0, 0.0);
+                       break;
+                case XJButtonGradientChangeDirectionVertical:
+                       p_end = CGPointMake(0.0, 1.0);
+                       break;
+                case XJButtonGradientChangeDirectionUpwardDiagonalLine:
+                       p_end = CGPointMake(1.0, 1.0);
+                       break;
+                case XJButtonGradientChangeDirectionDownDiagonalLine:
+                       p_end = CGPointMake(1.0, 0.0);
+                       break;
+                   default:
+                       break;
+            }
+            strongSelf.gradientLayer.endPoint = p_end;
+            [strongSelf.layer insertSublayer:self.gradientLayer atIndex:0];
+            if (strongSelf.imageView) {
+                [strongSelf bringSubviewToFront:strongSelf.imageView];
+            }
+            if (strongSelf.titleLabel) {
+                [strongSelf bringSubviewToFront:strongSelf.titleLabel];
+            }
         }
         [strongSelf setNeedsLayout];
         return strongSelf;
@@ -270,9 +294,11 @@
 
 -(XJButton * _Nonnull (^)(NSMutableAttributedString * _Nonnull))setAttributedString{
     __weak typeof(self)weakSelf = self;
-    return ^(NSMutableAttributedString *str){
+    return ^(NSMutableAttributedString *_Nonnull str){
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf setAttributedTitle:str forState:UIControlStateSelected];
+        if (str) {
+            [strongSelf setAttributedTitle:str forState:UIControlStateSelected];
+        }
         return strongSelf;
     };
 }
@@ -698,3 +724,4 @@
 - (void)setHighlighted:(BOOL)highlighted{}
 
 @end
+
