@@ -72,3 +72,53 @@ button.setFont(.SPMFont(fontSize: 14))
 
 
 
+### 支持 `cocoapods` 引入，目前执行pod search 搜索不到，但是可以倒入
+
+```
+target 'testaaaa' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  pod 'XJEasyButton', '0.1.3'
+end
+
+```
+如果是swift 的话 ，可以为这个Button 写一个扩展 ,调用更加方便。例如
+
+``` 
+   ///  创建一个button
+    /// - Parameters:
+    ///   - size: 文字大小
+    ///   - type: 文字类型
+    ///   - textColorHex: 文字颜色
+    ///   - alpha: 透明度
+    ///   - title: 标题
+    ///   - imageName: 图片名称
+    ///   - postion: 布局类型
+    ///   - spacing: 间距
+    convenience init(size: Int? = 14, type: MCFontCategory.typeface? = .Regular, textColorHex: String? = nil, alpha: CGFloat = 1.0, title:String? = nil, imageName:String? = nil, postion : XJButtonImagePosition? = nil,spacing:CGFloat = 1, seletedImage:String? = nil,clickAction:((XJButton)->())? = nil) {
+        self.init(type: .custom);
+        if let textColorHex = textColorHex {
+            _ = self.setTextColor(UIColor(hexString: textColorHex,alpha));
+        }
+        if  let postion = postion {
+            _ = self.setImagePosition(postion).setSpacingBetweenImageAndTitle(spacing);
+        }
+        if let size = size , let type = type {
+            _ = self.setFont(MCFontPF(size, type));
+        }
+        if let title = title {
+            _ = self.setTitle(title);
+        }
+        if let imageName = imageName {
+            _ = self.setImage(UIImage(named: imageName) ?? UIImage())
+        }
+        if let seletedImage = seletedImage {
+            _ = self.setSeletedImage(UIImage(named: seletedImage) ?? UIImage())
+        }
+        if let clickAction = clickAction{
+            _ = self.setAction(clickAction);
+        }
+        
+        self.translatesAutoresizingMaskIntoConstraints = false;
+    }
+```
