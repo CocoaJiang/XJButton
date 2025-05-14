@@ -20,6 +20,10 @@
 @property(assign,nonatomic) XJButtonGradientType type;
 @property(strong,nonatomic) CAGradientLayer *_Nullable gradientLayer;
 @property(strong,nonatomic) CAShapeLayer *shapeLayer;
+@property (nonatomic, strong) UIColor *disabledBgColor;
+@property (nonatomic, strong) UIColor *enableColor;
+@property (nonatomic, strong) UIColor *disabledTextColor;
+
 @end
 
 
@@ -159,7 +163,9 @@
             if (strongSelf.gradientLayer) {
                 [strongSelf.gradientLayer removeFromSuperlayer];
                 strongSelf.gradientLayer = nil;
+                strongSelf.colors = nil;
             }
+            strongSelf.enableColor = color;
             [strongSelf setBackgroundColor:color];
         }
         return strongSelf;
@@ -220,6 +226,30 @@
         return strongSelf;
     };
 }
+
+-(XJButton * _Nonnull (^)(UIColor * _Nonnull))setDisabledBgColor {
+    __weak typeof(self)weakSelf = self;
+    return ^(UIColor *_Nonnull disabledBgColor) {
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        if (disabledBgColor) {
+            strongSelf.disabledBgColor = disabledBgColor;
+        }
+        return strongSelf;
+    };
+}
+
+- (XJButton * _Nonnull (^)(UIColor * _Nullable))setDisabledTextColor{
+    __weak typeof(self)weakSelf = self;
+    return ^(UIColor *_Nonnull textColor) {
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        if (textColor) {
+            [strongSelf setTitleColor:textColor forState:UIControlStateDisabled];
+        }
+        return strongSelf;
+    };
+    
+}
+
 
 -(XJButton * _Nonnull (^)(UIEdgeInsets))setExpandClickArea{
     __weak typeof(self)weakSelf = self;;
@@ -373,6 +403,27 @@
     return [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)];
 }
 
+-(void)setEnabled:(BOOL)enabled{
+    [super setEnabled:enabled];
+    if (!self.disabledBgColor) {
+        return;;
+    }
+    /// 如果是未选中状态
+    if (!enabled) {
+        if (self.colors) {
+            _gradientLayer.hidden = true;
+        }
+        [self setBackgroundColor:self.disabledBgColor];
+    }else{
+        if (self.colors) {
+            _gradientLayer.hidden = false;
+        }else{
+            if (self.enableColor) {
+                [self setBackgroundColor:self.enableColor];
+            }
+        }
+    }
+}
 
 
 /// ERROR : 应该访问系统私有方法,这样不太妥当 会触发layoutSubViews

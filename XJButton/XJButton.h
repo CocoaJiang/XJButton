@@ -71,8 +71,14 @@ typedef NS_ENUM(NSInteger , XJButtonGradientType){
 /// 设置字体颜色
 @property(nonatomic,copy,readonly) XJButton *(^setTextColor)(UIColor *_Nullable color);
 
+/// 设置禁用状态下的字体颜色
+@property(nonatomic,copy,readonly) XJButton *(^setDisabledTextColor)(UIColor *_Nullable color);
+
 /// 设置背景颜色
 @property(nonatomic,copy,readonly) XJButton *(^setBgColor)(UIColor *_Nullable color);
+
+/// 设置禁用状态下的背景色
+@property(nonatomic,copy,readonly) XJButton *(^setDisabledBgColor)(UIColor *_Nullable color);
 
 /// 设置布局方式
 @property(nonatomic,copy,readonly) XJButton *(^setImagePosition)(XJButtonImagePosition imagePosition);
@@ -101,6 +107,7 @@ typedef NS_ENUM(NSInteger , XJButtonGradientType){
 
 /// 设置属性字符串
 @property(nonatomic,copy,readonly) XJButton *(^setAttributedString)(NSMutableAttributedString *_Nullable attributedString);
+
 
 
 @end
