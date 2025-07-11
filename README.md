@@ -58,6 +58,9 @@
 `@property(nonatomic,copy,readonly) XJButton *(^setAttributedString)(NSMutableAttributedString *attributedString);`
 
 
+#### 注意 V 0.1.5 版本，支持完美适配Swift调用具体请看 `XJButton+Swift.swift`
+
+
 ### 举个🌰-swift
 
 `
@@ -72,7 +75,7 @@ button.setFont(.SPMFont(fontSize: 14))
 
 
 
-### 支持 `cocoapods` 引入，目前执行pod search 搜索不到，但是可以倒入
+### 支持 `cocoapods` 引入
 
 ```
 target 'testaaaa' do
