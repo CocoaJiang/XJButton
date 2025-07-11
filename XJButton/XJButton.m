@@ -423,6 +423,7 @@
             }
         }
     }
+    [self setNeedsDisplay];
 }
 
 
